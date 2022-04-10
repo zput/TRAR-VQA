@@ -127,9 +127,10 @@ class DataSet(BaseDataSet):
     def img_feat_path_load(self, path_list):
         iid_to_path = {}
 
+        print("print img_feat_path_load", path_list)
         for ix, path in enumerate(path_list):
             iid = str(int(path.split('/')[-1].split('_')[-1].split('.')[0]))
-            print(iid)
+            # print(iid)
             iid_to_path[iid] = path
 
         return iid_to_path
