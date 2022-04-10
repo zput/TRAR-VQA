@@ -1,6 +1,37 @@
+
+
+# 大纲
+
+  - [筛选数据](#筛选数据)
+  - [修改代码](#修改代码)
+  - [按照python环境等](#按照python环境等)
+      - [安装注意点⚠️](#安装注意点️)
+  - [开始跑流程](#开始跑流程)
+      - [train](#train)
+      - [resume](#resume)
+      - [Validation and Testing](#validation-and-testing)
+  - [我的结果展示](#我的结果展示)
+
+## 筛选数据
+
+
+- 数据决定成败
+
+[使用本人写的vqa筛选出跑代码的数据，详情可参考我的仓库->](https://github.com/zput/filter-vqa-data)
+
+
+## 修改代码
+
+> 为适配老师的数据集，根改load相关文件代码，去掉vg相关代码
+>> 详情可参看git历史记录
+
+## 按照python环境等
+
+- 安装[conda](https://zhuanlan.zhihu.com/p/459607806)
+
+```
 export PATH="/home/username/miniconda/bin:$PATH"
 
-- https://zhuanlan.zhihu.com/p/459607806
 
 wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.11-Linux-x86_64.sh
 
@@ -18,21 +49,161 @@ pip install -r requirements.txt
 # wget https://github.com/explosion/spacy-models/releases/download/en_vectors_web_lg-2.1.0/en_vectors_web_lg-2.1.0.tar.gz -O en_vectors_web_lg-2.1.0.tar.gz
 pip install en_vectors_web_lg-2.1.0.tar.gz
 
+```
 
 
-!pip install pyyaml==5.4.1
+#### 安装注意点⚠️
+
+- ``` !pip install pyyaml==5.4.1 ```
 
 
----
 
-python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --SPLIT='train+val'  ```--GPU=4```
-
-- python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=str --CKPT_E=int
-  - python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=3950559 --CKPT_E=11
+## 开始跑流程
 
 
-# begin to install, driver: 460.91.03, cuda: 11.0.2, cudnn: 8.1.1
+#### train
 
+- ```python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --SPLIT='train+val'  ```
+
+#### resume
+
+- ```python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=str --CKPT_E=int```
+  - ```python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=3950559 --CKPT_E=11```
+
+#### Validation and Testing
+
+- ```python3 run.py --RUN='val' --MODEL='trar' --DATASET='vqa' --CKPT_V=5652158 --CKPT_E=12```
+
+
+## 我的结果展示
+
+
+```
+(trar) root@iZ0jld34l89hw61ntoxe34Z:~/TRAR-VQA# tree ckpts/
+ckpts/
+├── ckpt_3950559
+│   ├── epoch1.pkl
+│   ├── epoch10.pkl
+│   ├── epoch11.pkl
+│   ├── epoch12.pkl
+│   ├── epoch13.pkl
+│   ├── epoch2.pkl
+│   ├── epoch3.pkl
+│   ├── epoch4.pkl
+│   ├── epoch5.pkl
+│   ├── epoch6.pkl
+│   ├── epoch7.pkl
+│   ├── epoch8.pkl
+│   └── epoch9.pkl
+└── ckpt_5652158
+    ├── epoch11.pkl
+    ├── epoch12.pkl
+    └── epoch13.pkl
+
+2 directories, 16 files
+(trar) root@iZ0jld34l89hw61ntoxe34Z:~/TRAR-VQA#
+```
+
+```
+(trar) root@iZ0jld34l89hw61ntoxe34Z:~/TRAR-VQA# cat ./results/log/log_run_5652158.txt
+{ BATCH_SIZE        }->64
+{ BBOXFEAT_EMB_SIZE }->2048
+{ BBOX_NORMALIZE    }->True
+{ BINARIZE          }->False
+{ CACHE_PATH        }->./results/cache
+{ CKPTS_PATH        }->./ckpts
+{ CKPT_EPOCH        }->10
+{ CKPT_PATH         }->None
+{ CKPT_VERSION      }->3950559
+{ DATASET           }->vqa
+{ DATA_PATH         }->{'vqa': './data/vqa', 'clevr': './data/clevr'}
+{ DATA_ROOT         }->./data
+{ DEVICES           }->[0]
+{ DROPOUT_R         }->0.1
+{ EVAL_BATCH_SIZE   }->32
+{ EVAL_EVERY_EPOCH  }->True
+{ FEATS_PATH        }->{'vqa': {'train': './data/vqa/feats/train2014', 'val': './data/vqa/feats/val2014', 'test': './data/vqa/feats/test2015'}, 'clevr': {'train': './data/clevr/feats/train', 'val': './data/clevr/feats/val', 'test': './data/clevr/feats/test'}}
+{ FEAT_SIZE         }->{'vqa': {'FRCN_FEAT_SIZE': (64, 2048), 'BBOX_FEAT_SIZE': (100, 5)}, 'clevr': {'GRID_FEAT_SIZE': (196, 1024)}}
+{ FF_SIZE           }->2048
+{ FLAT_GLIMPSES     }->1
+{ FLAT_MLP_SIZE     }->512
+{ FLAT_OUT_SIZE     }->1024
+{ GPU               }->0
+{ GRAD_ACCU_STEPS   }->1
+{ GRAD_NORM_CLIP    }->-1
+{ HIDDEN_SIZE       }->512
+{ IMG_SCALE         }->8
+{ LAYER             }->6
+{ LOG_PATH          }->./results/log
+{ LOSS_FUNC         }->bce
+{ LOSS_FUNC_NAME_DICT }->{'ce': 'CrossEntropyLoss', 'bce': 'BCEWithLogitsLoss', 'kld': 'KLDivLoss', 'mse': 'MSELoss'}
+{ LOSS_FUNC_NONLINEAR }->{'ce': [None, 'flat'], 'bce': [None, None], 'kld': ['log_softmax', None], 'mse': [None, None]}
+{ LOSS_REDUCTION    }->sum
+{ LR_BASE           }->0.0001
+{ LR_DECAY_LIST     }->[10, 12]
+{ LR_DECAY_R        }->0.2
+{ MAX_EPOCH         }->13
+{ MODEL             }->trar
+{ MODEL_USE         }->TRAR
+{ MULTI_HEAD        }->8
+{ NUM_WORKERS       }->8
+{ N_GPU             }->1
+{ OPT               }->Adam
+{ OPT_PARAMS        }->{'betas': (0.9, 0.98), 'eps': 1e-09, 'weight_decay': 0, 'amsgrad': False}
+{ ORDERS            }->[0, 1, 2, 3]
+{ PIN_MEM           }->True
+{ POOLING           }->avg
+{ PRED_PATH         }->./results/pred
+{ RAW_PATH          }->{'vqa': {'train': './data/vqa/raw/v2_OpenEnded_mscoco_train2014_questions.json', 'train-anno': './data/vqa/raw/v2_mscoco_train2014_annotations.json', 'val': './data/vqa/raw/v2_OpenEnded_mscoco_val2014_questions.json', 'val-anno': './data/vqa/raw/v2_mscoco_val2014_annotations.json', 'test': './data/vqa/raw/v2_OpenEnded_mscoco_test2015_questions.json'}, 'clevr': {'train': './data/clevr/raw/questions/CLEVR_train_questions.json', 'val': './data/clevr/raw/questions/CLEVR_val_questions.json', 'test': './data/clevr/raw/questions/CLEVR_test_questions.json'}}
+{ RESULT_PATH       }->./results/result_test
+{ RESUME            }->True
+{ ROUTING           }->soft
+{ RUN_MODE          }->train
+{ SEED              }->5652158
+{ SPLIT             }->{'train': 'train', 'val': 'val', 'test': 'test'}
+{ SPLITS            }->{'vqa': {'train': 'train', 'val': 'val', 'test': 'test'}, 'clevr': {'train': '', 'val': 'val', 'test': 'test'}}
+{ SUB_BATCH_SIZE    }->64
+{ TASK_LOSS_CHECK   }->{'vqa': ['bce', 'kld'], 'clevr': ['ce']}
+{ TAU_MAX           }->10
+{ TAU_MIN           }->0.1
+{ TAU_POLICY        }->1
+{ TEST_SAVE_PRED    }->False
+{ TRAIN_SPLIT       }->train
+{ USE_AUX_FEAT      }->False
+{ USE_BBOX_FEAT     }->False
+{ USE_GLOVE         }->True
+{ VERBOSE           }->True
+{ VERSION           }->5652158
+{ WARMUP_EPOCH      }->3
+{ WORD_EMBED_SIZE   }->300
+=====================================
+nowTime: 2022-04-10 18:21:31
+Epoch: 11, Loss: 83.59267324472403, Lr: 2e-05
+Elapsed time: 2, Speed(s/batch): 0.5694633960723877
+
+Overall Accuracy is: 23.38
+other : 0.00 number : 0.00 yes/no : 71.92
+
+=====================================
+nowTime: 2022-04-10 18:21:37
+Epoch: 12, Loss: 81.23818993506494, Lr: 2e-05
+Elapsed time: 2, Speed(s/batch): 0.5361629962921143
+
+Overall Accuracy is: 23.38
+other : 0.00 number : 0.00 yes/no : 71.92
+
+=====================================
+nowTime: 2022-04-10 18:21:42
+Epoch: 13, Loss: 79.75693739853897, Lr: 4.000000000000001e-06
+Elapsed time: 2, Speed(s/batch): 0.5449070930480957
+
+Overall Accuracy is: 23.38
+other : 0.00 number : 0.00 yes/no : 71.92
+
+Overall Accuracy is: 23.38
+other : 0.00 number : 0.00 yes/no : 71.92
+
+```
 
 
 
