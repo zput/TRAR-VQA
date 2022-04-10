@@ -1,31 +1,43 @@
 
+- https://zhuanlan.zhihu.com/p/459607806
 
 wget https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-2021.11-Linux-x86_64.sh
 
-
-
 bash Anaconda3-2021.11-Linux-x86_64.sh
 
-conda create -n trar python=3.7 -y
-conda activate trar
+source ~/.bashrc
 
+conda create -n trar python=3.7 -y
+
+conda activate trar
 
 conda install pytorch==1.7.1 torchvision==0.8.2 cudatoolkit=10.1 -c pytorch
 
-
 pip install -r requirements.txt
-wget https://github.com/explosion/spacy-models/releases/download/en_vectors_web_lg-2.1.0/en_vectors_web_lg-2.1.0.tar.gz -O en_vectors_web_lg-2.1.0.tar.gz
+# wget https://github.com/explosion/spacy-models/releases/download/en_vectors_web_lg-2.1.0/en_vectors_web_lg-2.1.0.tar.gz -O en_vectors_web_lg-2.1.0.tar.gz
 pip install en_vectors_web_lg-2.1.0.tar.gz
 
-
-
----
 
 
 !pip install pyyaml==5.4.1
 
 
-vim openvqa/core/path_cfgs.py
+---
+
+python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --SPLIT='train+val' --MAX_EPOCH=3 --GPU=4
+
+python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=str --CKPT_E=int
+Loading ckpt from
+
+
+
+
+
+
+
+
+
+
 
 
 
