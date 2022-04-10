@@ -25,13 +25,13 @@ pip install en_vectors_web_lg-2.1.0.tar.gz
 
 ---
 
-python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --SPLIT='train+val' --GPU=4
+python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --SPLIT='train+val'  ```--GPU=4```
 
-python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=str --CKPT_E=int
-Loading ckpt from
+- python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=str --CKPT_E=int
+  - python3 run.py --RUN='train' --DATASET='vqa' --MODEL='trar' --RESUME=True --CKPT_V=3950559 --CKPT_E=11
 
 
-begin to install, driver: 460.91.03, cuda: 11.0.2, cudnn: 8.1.1
+# begin to install, driver: 460.91.03, cuda: 11.0.2, cudnn: 8.1.1
 
 
 
