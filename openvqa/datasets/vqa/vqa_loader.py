@@ -40,11 +40,58 @@ class DataSet(BaseDataSet):
         self.ques_list = []
         self.ans_list = []
 
+
+    # parser.add_argument('--SPLIT', dest='TRAIN_SPLIT',
+    #                   choices=['train', 'train+val', 'train+val+vg'],
+    #                   help="set training split, "
+    #                        "vqa: {'train', 'train+val', 'train+val+vg'}"
+    #                        "clevr: {'train', 'train+val'}"
+    #                    ,
+    #                 type=str)
+        #-----这里是去分裂它
         split_list = __C.SPLIT[__C.RUN_MODE].split('+')
-        for split in split_list:
+        for split in split_list:      # ---- 'train'
             self.ques_list += json.load(open(__C.RAW_PATH[__C.DATASET][split], 'r'))['questions']
             if __C.RUN_MODE in ['train']:
                 self.ans_list += json.load(open(__C.RAW_PATH[__C.DATASET][split + '-anno'], 'r'))['annotations']
+
+# type T struct {
+# 
+# 	Questions []struct {
+# 		ImageID    int    `json:"image_id"`
+# 		Question   string `json:"question"`
+# 		QuestionID int    `json:"question_id"`
+# 	} `json:"questions"`   ---------------------------------------------------->  questions
+# 	TaskType string `json:"task_type"`
+# 
+# 	Annotations []struct {
+# 		AnswerType string `json:"answer_type"`
+# 		Answers    []struct {
+# 			Answer           string `json:"answer"`
+# 			AnswerConfidence string `json:"answer_confidence"`
+# 			AnswerID         int    `json:"answer_id"`
+# 		} `json:"answers"`
+# 		ImageID              int    `json:"image_id"`
+# 		MultipleChoiceAnswer string `json:"multiple_choice_answer"`
+# 		QuestionID           int    `json:"question_id"`
+# 		QuestionType         string `json:"question_type"`
+# 	} `json:"annotations"` ----------------------------------------------------> annotations
+# 
+# 	DataSubtype string `json:"data_subtype"`
+# 	DataType    string `json:"data_type"`
+# 	Info        struct {
+# 		Contributor string `json:"contributor"`
+# 		DateCreated string `json:"date_created"`
+# 		Description string `json:"description"`
+# 		URL         string `json:"url"`
+# 		Version     string `json:"version"`
+# 		Year        int    `json:"year"`
+# 	} `json:"info"`
+# 	License struct {
+# 		Name string `json:"name"`
+# 		URL  string `json:"url"`
+# 	} `json:"license"`
+# }
 
         # Define run data size
         if __C.RUN_MODE in ['train']:
