@@ -184,7 +184,7 @@ def train_engine(__C, dataset, dataset_eval=None):
                 ques_ix_iter,
                 ans_iter)
 
-            if (falseOrTrue.numpy() == 0):
+            if (falseOrTrue.numpy()[0] == 0):
                 continue
 
             optim.zero_grad()
