@@ -176,13 +176,7 @@ def train_engine(__C, dataset, dataset_eval=None):
                 ques_ix_iter,
                 ans_iter
         ) in enumerate(dataloader):
-            print(
-                falseOrTrue,
-                frcn_feat_iter,
-                grid_feat_iter,
-                bbox_feat_iter,
-                ques_ix_iter,
-                ans_iter)
+            print(falseOrTrue)
 
             if (falseOrTrue.numpy()[0] == 0):
                 continue
